@@ -11,6 +11,7 @@ import 'dart:io';
 import 'dart:ui';
 
 import 'package:android_flutter_wifi/android_flutter_wifi.dart';
+import 'package:app/models/info_item.dart';
 import 'package:app/string_splitter_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
@@ -58,17 +59,18 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  List<String> _connectionStatus = List<String>.empty();
+  List<InfoItem> _connectionStatus = List.empty(growable: true);
   final NetworkInfo _networkInfo = NetworkInfo();
 
 
   @override
   void initState() {
-    super.initState();
+
     _initNetworkInfo();
     AndroidFlutterWifi.init();
     var isConnected = AndroidFlutterWifi.isConnected();
     getDhcpInfo();
+    super.initState();
   }
 
   @override
@@ -277,15 +279,15 @@ class _MyHomePageState extends State<MyHomePage> {
       //     'Wifi DNS1: $wifiDns1\n'
       //     'Wifi DNS2: $wifiDns2\n';
 
-      _connectionStatus.add(wifiName!);
-      _connectionStatus.add(wifiBSSID! );
-      _connectionStatus.add(wifiIPv4!);
-      _connectionStatus.add(wifiIPv6!);
-      _connectionStatus.add(wifiBroadcast!);
-      _connectionStatus.add(wifiGatewayIP!);
-      _connectionStatus.add(wifiSubmask!);
-      _connectionStatus.add(wifiDns1!);
-      _connectionStatus.add(wifiDns2!);
+      _connectionStatus.add(InfoItem("Wireless", "Name", wifiName!));
+      _connectionStatus.add(InfoItem("Wireless", "BSSID", wifiBSSID! ));
+      _connectionStatus.add(InfoItem("Wireless", "IP4", wifiIPv4!));
+      _connectionStatus.add(InfoItem("Wireless", "IP6", wifiIPv6!));
+      _connectionStatus.add(InfoItem("Wireless", "Broadcast", wifiBroadcast!));
+      _connectionStatus.add(InfoItem("Wireless", "Gateway", wifiGatewayIP!));
+      _connectionStatus.add(InfoItem("Wireless", "Submask", wifiSubmask!));
+      _connectionStatus.add(InfoItem("Wireless", "DNS 1", wifiDns1!));
+      _connectionStatus.add(InfoItem("Wireless", "DNS 2", wifiDns2!));
 
     });
   }
