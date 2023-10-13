@@ -5,10 +5,14 @@
 // ignore_for_file: public_member_api_docs
 
 import 'dart:async';
+import 'dart:collection';
 import 'dart:developer' as developer;
 import 'dart:io';
+import 'dart:ui';
 
 import 'package:android_flutter_wifi/android_flutter_wifi.dart';
+import 'package:app/models/info_item.dart';
+import 'package:app/string_splitter_widget.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -55,39 +59,43 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  String _connectionStatus = 'Unknown';
+  List<InfoItem> _connectionStatus = List.empty(growable: true);
   final NetworkInfo _networkInfo = NetworkInfo();
 
 
   @override
   void initState() {
-    super.initState();
+
     _initNetworkInfo();
     AndroidFlutterWifi.init();
     var isConnected = AndroidFlutterWifi.isConnected();
     getDhcpInfo();
+    super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('NetworkInfo'),
+        title: const Text('Network Info App',
+        style: TextStyle(color: Colors.white),),
         elevation: 4,
+        backgroundColor: Colors.blue,
       ),
       body: Center(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               const Text(
-                'Network info',
+                'Wireless info',
                 style: TextStyle(
                   fontSize: 16,
                   fontWeight: FontWeight.bold,
                 ),
               ),
               const SizedBox(height: 16),
-              Text(_connectionStatus),
+              //Text(_connectionStatus),
+              StringSplitterWidget(_connectionStatus)
             ],
           )),
     );
@@ -261,15 +269,25 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     setState(() {
-      _connectionStatus = 'Wifi Name: $wifiName\n'
-          'Wifi BSSID: $wifiBSSID\n'
-          'Wifi IPv4: $wifiIPv4\n'
-          'Wifi IPv6: $wifiIPv6\n'
-          'Wifi Broadcast: $wifiBroadcast\n'
-          'Wifi Gateway: $wifiGatewayIP\n'
-          'Wifi Submask: $wifiSubmask\n'
-          'Wifi DNS1: $wifiDns1\n'
-          'Wifi DNS2: $wifiDns2\n';
+      // _connectionStatus = 'Wifi Name: $wifiName\n'
+      //     'Wifi BSSID: $wifiBSSID\n'
+      //     'Wifi IPv4: $wifiIPv4\n'
+      //     'Wifi IPv6: $wifiIPv6\n'
+      //     'Wifi Broadcast: $wifiBroadcast\n'
+      //     'Wifi Gateway: $wifiGatewayIP\n'
+      //     'Wifi Submask: $wifiSubmask\n'
+      //     'Wifi DNS1: $wifiDns1\n'
+      //     'Wifi DNS2: $wifiDns2\n';
+
+      _connectionStatus.add(InfoItem("Wireless", "Name", wifiName!));
+      _connectionStatus.add(InfoItem("Wireless", "BSSID", wifiBSSID! ));
+      _connectionStatus.add(InfoItem("Wireless", "IP4", wifiIPv4!));
+      _connectionStatus.add(InfoItem("Wireless", "IP6", wifiIPv6!));
+      _connectionStatus.add(InfoItem("Wireless", "Broadcast", wifiBroadcast!));
+      _connectionStatus.add(InfoItem("Wireless", "Gateway", wifiGatewayIP!));
+      _connectionStatus.add(InfoItem("Wireless", "Submask", wifiSubmask!));
+      _connectionStatus.add(InfoItem("Wireless", "DNS 1", wifiDns1!));
+      _connectionStatus.add(InfoItem("Wireless", "DNS 2", wifiDns2!));
 
     });
   }
