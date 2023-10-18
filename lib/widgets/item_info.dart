@@ -1,31 +1,27 @@
 import 'package:app/models/info_item.dart';
+import 'package:app/theme/custom-theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 
 
-class StringSplitterWidget extends StatefulWidget {
-  const StringSplitterWidget(this.splitStrings, {super.key});
+class ItemInfo extends StatefulWidget {
+  const ItemInfo(this.splitStrings, {super.key});
   final List<InfoItem> splitStrings ;
 
   @override
   State<StatefulWidget> createState() {
-    return _StringSplitterWidget(splitStrings);
+    return _ItemInfo(splitStrings);
   }
 }
 
-class _StringSplitterWidget extends State<StringSplitterWidget> {
-  _StringSplitterWidget(this.splitStrings);
+class _ItemInfo extends State<ItemInfo> {
+  _ItemInfo(this.splitStrings);
   final List<InfoItem> splitStrings ;
 
   @override
   Widget build(BuildContext context) {
-    print("SPW 2: $splitStrings");
-
     if(splitStrings.isNotEmpty) {
-
-      //print("Not empty! $splitStrings" + splitStrings.first);
-
       return Column( children: [
         ...splitStrings.map((element) {
           print(element);
@@ -41,13 +37,13 @@ class _StringSplitterWidget extends State<StringSplitterWidget> {
     Clipboard.setData(ClipboardData(text: text));
     ScaffoldMessenger.of(context).showSnackBar(
       SnackBar(
+        backgroundColor: ThemeColors.accentColor,
         content: Text('Copied to clipboard: $text'),
       ),
     );
   }
 
   Widget _createText(InfoItem item, BuildContext context) {
-    print("Creando Widgets $item");
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -65,6 +61,7 @@ class _StringSplitterWidget extends State<StringSplitterWidget> {
               ),
               IconButton(
                 icon: Icon(Icons.copy),
+                color: ThemeColors.primaryDark,
                 onPressed: () {
                   _copyToClipboard(item.data, context);
                 },
@@ -76,6 +73,4 @@ class _StringSplitterWidget extends State<StringSplitterWidget> {
       ],
     );
   }
-
-
 }

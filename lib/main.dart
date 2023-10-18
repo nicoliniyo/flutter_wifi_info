@@ -12,10 +12,13 @@ import 'dart:ui';
 
 import 'package:android_flutter_wifi/android_flutter_wifi.dart';
 import 'package:app/models/info_item.dart';
-import 'package:app/string_splitter_widget.dart';
+import 'package:app/widgets/build_number.dart';
+import 'package:app/widgets/item_info.dart';
+import 'package:app/theme/custom-theme.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:network_info_plus/network_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -29,11 +32,11 @@ void _enablePlatformOverrideForDesktop() {
 
 void main() {
   _enablePlatformOverrideForDesktop();
-  runApp(const MyApp());
+  runApp(const NetworkinfoApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({Key? key}) : super(key: key);
+class NetworkinfoApp extends StatelessWidget {
+  const NetworkinfoApp({Key? key}) : super(key: key);
 
   // This widget is the root of your application.
   @override
@@ -42,26 +45,49 @@ class MyApp extends StatelessWidget {
       title: 'Network Info',
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: const Color(0xff029cee),
+        colorSchemeSeed: ThemeColors.white,
       ),
-      home: const MyHomePage(title: 'Network Info'),
+      home: const WirelessPage(title: 'Network Info'),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({Key? key, this.title}) : super(key: key);
+class WirelessPage extends StatefulWidget {
+  const WirelessPage({Key? key, this.title}) : super(key: key);
 
   final String? title;
 
   @override
-  State<MyHomePage> createState() => _MyHomePageState();
+  State<WirelessPage> createState() => _WirelessPageState();
 }
 
-class _MyHomePageState extends State<MyHomePage> {
+class _WirelessPageState extends State<WirelessPage> {
   List<InfoItem> _connectionStatus = List.empty(growable: true);
   final NetworkInfo _networkInfo = NetworkInfo();
+  final Widget buildNumber = const BuildNumber();
+  int _selectedIndex = 0;
+  static const TextStyle optionStyle =
+  TextStyle(fontSize: 30, fontWeight: FontWeight.bold);
+  static const List<Widget> _widgetOptions = <Widget>[
+    Text(
+      'Index 0: Wireless',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 1: Mobile',
+      style: optionStyle,
+    ),
+    Text(
+      'Index 2: Utils',
+      style: optionStyle,
+    ),
+  ];
 
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
 
   @override
   void initState() {
@@ -77,25 +103,74 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Network Info App',
-        style: TextStyle(color: Colors.white),),
+        title: Text('Network Info App',
+          style: ThemeTextStyle.robotoWhiteText),
         elevation: 4,
-        backgroundColor: Colors.blue,
+        backgroundColor: ThemeColors.primary,
+        iconTheme: const IconThemeData(color: ThemeColors.white),
+
       ),
-      body: Center(
+      drawer: Drawer(
+        child: Column(
+          children: [
+            Expanded(
+              child: ListView(
+                padding: EdgeInsets.zero,
+                children: [
+                  DrawerHeader(
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [Colors.blue, Colors.green], // Adjust colors as needed
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                      ),
+                    ),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Image.asset(
+                          'assets/img/nicapps-logo.png', // Replace with the actual asset path
+                          width: 80.0, // Adjust width as needed
+                          height: 80.0, // Adjust height as needed
+                        ),
+                        SizedBox(height: 10.0),
+                        Text(
+                          'Network Info App',
+                          style: ThemeTextStyle.robotoWhite16Text,
+                        ),
+                      ],
+                    ),
+                  ),
+                  ListTile(
+                    title: Text('Wireless', style: ThemeTextStyle.robotoText),
+                    selected: _selectedIndex == 0,
+                    onTap: () {
+                      _onItemTapped(0);
+                      Navigator.pop(context);
+                    },
+                  ),
+                  // Add other list items here
+                ],
+              ),
+            ),
+            ListTile(
+              title: buildNumber,
+            ),
+          ],
+        ),
+      ),
+
+    body: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
-              const Text(
+              Text(
                 'Wireless info',
-                style: TextStyle(
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
+                style: ThemeTextStyle.robotoBold16Text,
               ),
               const SizedBox(height: 16),
               //Text(_connectionStatus),
-              StringSplitterWidget(_connectionStatus)
+              ItemInfo(_connectionStatus)
             ],
           )),
     );
@@ -104,22 +179,16 @@ class _MyHomePageState extends State<MyHomePage> {
   getActiveWifiNetwork() async {
     ActiveWifiNetwork activeWifiNetwork =
     await AndroidFlutterWifi.getActiveWifiInfo();
-    print('ActiveNetwork bssid: ${activeWifiNetwork.bssid}');
   }
 
   Future<DhcpInfo> getDhcpInfo() async {
     DhcpInfo dhcpInfo = await AndroidFlutterWifi.getDhcpInfo();
+    // Debug
+    // String ipString = AndroidFlutterWifi.toIp(dhcpInfo.gateway!);
+    // String formedIp = AndroidFlutterWifi.getFormedIp(ipString);
+    // String dns1 = setIp(int.parse(dhcpInfo.dns1!));
+    // String dns2 = (dhcpInfo.dns2!);
 
-    String ipString = AndroidFlutterWifi.toIp(dhcpInfo.gateway!);
-    String formedIp = AndroidFlutterWifi.getFormedIp(ipString);
-    String dns1 = setIp(int.parse(dhcpInfo.dns1!));
-    String dns2 = (dhcpInfo.dns2!);
-
-
-    print('Gateway: ${ipString}');
-    print('Formed ip: ${formedIp}');
-    print('Dns1: ${dns1}');
-    print('Dns2: ${dns2}');
     return dhcpInfo;
   }
 
@@ -269,16 +338,6 @@ class _MyHomePageState extends State<MyHomePage> {
     }
 
     setState(() {
-      // _connectionStatus = 'Wifi Name: $wifiName\n'
-      //     'Wifi BSSID: $wifiBSSID\n'
-      //     'Wifi IPv4: $wifiIPv4\n'
-      //     'Wifi IPv6: $wifiIPv6\n'
-      //     'Wifi Broadcast: $wifiBroadcast\n'
-      //     'Wifi Gateway: $wifiGatewayIP\n'
-      //     'Wifi Submask: $wifiSubmask\n'
-      //     'Wifi DNS1: $wifiDns1\n'
-      //     'Wifi DNS2: $wifiDns2\n';
-
       _connectionStatus.add(InfoItem("Wireless", "Name", wifiName!));
       _connectionStatus.add(InfoItem("Wireless", "BSSID", wifiBSSID! ));
       _connectionStatus.add(InfoItem("Wireless", "IP4", wifiIPv4!));
