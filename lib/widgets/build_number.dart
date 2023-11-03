@@ -1,6 +1,6 @@
 
 
-import 'package:app/theme/custom-theme.dart';
+import 'package:app/theme/custom_theme.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 

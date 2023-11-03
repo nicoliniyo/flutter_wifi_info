@@ -25,33 +25,37 @@ class ThemeColors {
 }
 
 class ThemeTextStyle {
-
   static TextStyle robotoWhiteText =
-  GoogleFonts.roboto(textStyle: const TextStyle(color: ThemeColors.white));
+      GoogleFonts.roboto(textStyle: const TextStyle(color: ThemeColors.white));
 
-  static TextStyle robotoWhite16Text =
-  GoogleFonts.roboto(textStyle: TextStyle(
+  static TextStyle robotoWhite16Text = GoogleFonts.roboto(
+      textStyle: const TextStyle(
     color: ThemeColors.white,
     fontSize: 16,
     fontWeight: FontWeight.normal,
   ));
 
   static TextStyle robotoText =
-  GoogleFonts.roboto(textStyle: const TextStyle(color: ThemeColors.black));
+      GoogleFonts.roboto(textStyle: const TextStyle(color: ThemeColors.black));
 
-  static TextStyle robotoBold16Text =
-    GoogleFonts.roboto(textStyle: TextStyle(
-      color: ThemeColors.black,
-      fontSize: 16,
-      fontWeight: FontWeight.bold,
-    ));
+  static TextStyle robotoBold16Text = GoogleFonts.roboto(
+      textStyle: const TextStyle(
+    color: ThemeColors.black,
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  ));
 
-  static TextStyle roboto10Text =
-  GoogleFonts.roboto(textStyle: TextStyle(
+  static TextStyle roboto10Text = GoogleFonts.roboto(
+      textStyle: const TextStyle(
     color: ThemeColors.secondaryText,
     fontSize: 10,
     fontWeight: FontWeight.normal,
   ));
 
-
+  static TextStyle roboto10WhiteText = GoogleFonts.roboto(
+      textStyle: const TextStyle(
+        color: ThemeColors.white,
+        fontSize: 10,
+        fontWeight: FontWeight.normal,
+      ));
 }

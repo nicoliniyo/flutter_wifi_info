@@ -1,5 +1,5 @@
 import 'package:app/models/info_item.dart';
-import 'package:app/theme/custom-theme.dart';
+import 'package:app/theme/custom_theme.dart';
 import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
@@ -29,7 +29,26 @@ class _ItemInfo extends State<ItemInfo> {
         })
       ],);
     }else {
-      return const Text("Wireless Information Not found!");
+      return Center(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              'Oh ... no se pudo obtener la información!',
+              style: Theme.of(context).textTheme.headlineLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              'Pruebe conectando su dispositivo a otra red!',
+              style: Theme.of(context).textTheme.bodyLarge!.copyWith(
+                color: Theme.of(context).colorScheme.onBackground,
+              ),
+            ),
+          ],
+        ),
+      );
     }
   }
 

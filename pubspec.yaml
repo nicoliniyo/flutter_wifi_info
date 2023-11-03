@@ -40,6 +40,10 @@ dependencies:
   android_flutter_wifi: ^0.1.2
   google_fonts: ^6.1.0
   package_info_plus: ^4.2.0
+  internet_connection_checker_plus: ^2.1.0
+  ionicons: ^0.2.2
+  material_design_icons_flutter: ^7.0.7296
+  connectivity_plus: ^5.0.1
 
 dev_dependencies:
   flutter_test:
