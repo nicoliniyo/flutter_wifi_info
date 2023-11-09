@@ -1,16 +1,13 @@
-# app
+# Network Info App
 
-A new Flutter project.
+**Your One-Stop Network Information**
 
-## Getting Started
+Welcome to the Network Info App, your trusted companion for quick view network information. Whether you're a tech enthusiast, a network administrator, or simply curious about the workings of your internet connection, our app has you covered.
 
-This project is a starting point for a Flutter application.
 
-A few resources to get you started if this is your first Flutter project:
+At NicApps, we believe that technology should be fun, accessible, and a collaborative adventure. Join us today, and let's create a world of delightful, open-source Flutter apps together. Get ready to have some serious fun while making a difference in the tech world. The future of open-source apps starts here! 🎉📱
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
+## Android Version
+The Android version looks like this:
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![android_version](_media/android-screenshot_1.jpg)

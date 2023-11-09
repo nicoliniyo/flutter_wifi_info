@@ -1,4 +1,4 @@
-package com.example.app
+package foss.nico.networkinfo
 
 import io.flutter.embedding.android.FlutterActivity
 
