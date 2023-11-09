@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import '../theme/custom_theme.dart';
@@ -36,8 +35,8 @@ class _AppDrawer extends State<AppDrawer> {
                   decoration: const BoxDecoration(
                     gradient: LinearGradient(
                       colors: [
-                        Colors.blue,
-                        Colors.green
+                        Colors.white,
+                        Colors.blue
                       ], // Adjust colors as needed
                       begin: Alignment.topCenter,
                       end: Alignment.bottomCenter,
@@ -56,7 +55,8 @@ class _AppDrawer extends State<AppDrawer> {
                         'NicApps',
                         style: ThemeTextStyle.robotoWhite16Text,
                       ),
-                      Text('https://nicoliniyo.github.io/nicapps/', style: ThemeTextStyle.roboto10WhiteText),
+                      Text('https://nicoliniyo.github.io/nicapps/',
+                          style: ThemeTextStyle.roboto10WhiteText),
                     ],
                   ),
                 ),

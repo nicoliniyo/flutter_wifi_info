@@ -1,5 +1,3 @@
-import 'dart:ui' show Color;
-
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -54,8 +52,8 @@ class ThemeTextStyle {
 
   static TextStyle roboto10WhiteText = GoogleFonts.roboto(
       textStyle: const TextStyle(
-        color: ThemeColors.white,
-        fontSize: 10,
-        fontWeight: FontWeight.normal,
-      ));
+    color: ThemeColors.white,
+    fontSize: 10,
+    fontWeight: FontWeight.normal,
+  ));
 }
