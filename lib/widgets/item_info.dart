@@ -4,31 +4,32 @@ import 'package:flutter/material.dart';
 
 import 'package:flutter/services.dart';
 
-
 class ItemInfo extends StatefulWidget {
   const ItemInfo(this.splitStrings, {super.key});
-  final List<InfoItem> splitStrings ;
+  final List<InfoItem> splitStrings;
 
   @override
   State<StatefulWidget> createState() {
+    // ignore: no_logic_in_create_state
     return _ItemInfo(splitStrings);
   }
 }
 
 class _ItemInfo extends State<ItemInfo> {
   _ItemInfo(this.splitStrings);
-  final List<InfoItem> splitStrings ;
+  final List<InfoItem> splitStrings;
 
   @override
   Widget build(BuildContext context) {
-    if(splitStrings.isNotEmpty) {
-      return Column( children: [
-        ...splitStrings.map((element) {
-          print(element);
-          return _createText(element, context);
-        })
-      ],);
-    }else {
+    if (splitStrings.isNotEmpty) {
+      return Column(
+        children: [
+          ...splitStrings.map((element) {
+            return _createText(element, context);
+          })
+        ],
+      );
+    } else {
       return Center(
         child: Column(
           mainAxisSize: MainAxisSize.min,
@@ -36,15 +37,15 @@ class _ItemInfo extends State<ItemInfo> {
             Text(
               'Oh ... no se pudo obtener la información!',
               style: Theme.of(context).textTheme.headlineLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
             ),
             const SizedBox(height: 16),
             Text(
               'Pruebe conectando su dispositivo a otra red!',
               style: Theme.of(context).textTheme.bodyLarge!.copyWith(
-                color: Theme.of(context).colorScheme.onBackground,
-              ),
+                    color: Theme.of(context).colorScheme.onBackground,
+                  ),
             ),
           ],
         ),
@@ -67,7 +68,7 @@ class _ItemInfo extends State<ItemInfo> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.0),
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
@@ -79,7 +80,7 @@ class _ItemInfo extends State<ItemInfo> {
                 ],
               ),
               IconButton(
-                icon: Icon(Icons.copy),
+                icon: const Icon(Icons.copy),
                 color: ThemeColors.primaryDark,
                 onPressed: () {
                   _copyToClipboard(item.data, context);
@@ -88,7 +89,7 @@ class _ItemInfo extends State<ItemInfo> {
             ],
           ),
         ),
-        Divider(), // Optional: Divider between items
+        const Divider(), // Optional: Divider between items
       ],
     );
   }

@@ -5,15 +5,15 @@ class DeviceUtils {
     return Platform.operatingSystem;
   }
 
-  static toIp(int _ip) {
-    var _strData = StringBuffer();
+  static toIp(int ip) {
+    var strData = StringBuffer();
     for (int i = 0; i < 4; i++) {
-      _strData.write(_ip >> 24 & 0xff);
+      strData.write(ip >> 24 & 0xff);
       if (i < 3) {
-        _strData.write(".");
+        strData.write(".");
       }
-      _ip = _ip << 8;
+      ip = ip << 8;
     }
-    return _strData.toString();
+    return strData.toString();
   }
 }

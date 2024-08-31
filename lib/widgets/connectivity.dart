@@ -67,7 +67,7 @@ class _ConnectivityWidget extends State<ConnectivityWidget> {
 
   Icon getConnectivityType(ConnectivityResult connectivityResult) {
     Icon type = const Icon(Icons.device_unknown);
-    developer.log('Connctivity Type $connectivityResult');
+    developer.log('Connectivity Type $connectivityResult');
     if (connectivityResult == ConnectivityResult.mobile) {
       // I am connected to a mobile network.
       type = const Icon(Icons.phone_android);
