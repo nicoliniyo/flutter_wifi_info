@@ -192,10 +192,10 @@ class _WirelessPageState extends State<WirelessPage> {
     try {
       if (!kIsWeb && Platform.isIOS) {
         // ignore: deprecated_member_use
-        var status = await _networkInfo.getLocationServiceAuthorization();
+        var status = await _networkInfo.getWifiIP();
         if (status == LocationAuthorizationStatus.notDetermined) {
           // ignore: deprecated_member_use
-          status = await _networkInfo.requestLocationServiceAuthorization();
+          status = await _networkInfo.getWifiIP();
         }
         if (status == LocationAuthorizationStatus.authorizedAlways ||
             status == LocationAuthorizationStatus.authorizedWhenInUse) {
@@ -228,10 +228,10 @@ class _WirelessPageState extends State<WirelessPage> {
     try {
       if (!kIsWeb && Platform.isIOS) {
         // ignore: deprecated_member_use
-        var status = await _networkInfo.getLocationServiceAuthorization();
+        var status = await _networkInfo.getWifiIP();
         if (status == LocationAuthorizationStatus.notDetermined) {
           // ignore: deprecated_member_use
-          status = await _networkInfo.requestLocationServiceAuthorization();
+          status = await _networkInfo.getWifiIP();
         }
         if (status == LocationAuthorizationStatus.authorizedAlways ||
             status == LocationAuthorizationStatus.authorizedWhenInUse) {

@@ -14,9 +14,9 @@ class ConnectivityWidget extends StatefulWidget {
 }
 
 class _ConnectivityWidget extends State<ConnectivityWidget> {
-  ConnectivityResult _connectionStatus = ConnectivityResult.none;
+  List<ConnectivityResult> _connectionStatus = List.empty();
   final Connectivity _connectivity = Connectivity();
-  late StreamSubscription<ConnectivityResult> _connectivitySubscription;
+  late StreamSubscription<List<ConnectivityResult>> _connectivitySubscription;
 
   @override
   void initState() {
@@ -35,7 +35,7 @@ class _ConnectivityWidget extends State<ConnectivityWidget> {
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initConnectivity() async {
-    late ConnectivityResult result;
+    late List<ConnectivityResult> result;
     // Platform messages may fail, so we use a try/catch PlatformException.
     try {
       result = await _connectivity.checkConnectivity();
@@ -54,7 +54,7 @@ class _ConnectivityWidget extends State<ConnectivityWidget> {
     return _updateConnectionStatus(result);
   }
 
-  Future<void> _updateConnectionStatus(ConnectivityResult result) async {
+  Future<void> _updateConnectionStatus(List<ConnectivityResult> result) async {
     setState(() {
       _connectionStatus = result;
     });
@@ -65,7 +65,7 @@ class _ConnectivityWidget extends State<ConnectivityWidget> {
     return getConnectivityType(_connectionStatus);
   }
 
-  Icon getConnectivityType(ConnectivityResult connectivityResult) {
+  Icon getConnectivityType(List<ConnectivityResult> connectivityResult) {
     Icon type = const Icon(Icons.device_unknown);
     developer.log('Connectivity Type $connectivityResult');
     if (connectivityResult == ConnectivityResult.mobile) {
